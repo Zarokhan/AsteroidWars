@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\FSM">
+      <UniqueIdentifier>{ba803e05-edeb-429f-bee7-a874b61cd937}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\FuSM">
+      <UniqueIdentifier>{c885cfb1-6002-4318-9a9c-909c8ff38ab3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FuSM">
+      <UniqueIdentifier>{fea339b8-1a9b-4e6a-8122-349786e73c83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FSM">
+      <UniqueIdentifier>{a1d3cc99-0fdf-49d1-86fa-91a2ece60ad8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Controllers">
+      <UniqueIdentifier>{8217ec7e-43d4-4acb-a9db-0bb813ec84e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Controllers">
+      <UniqueIdentifier>{f94fef3b-6b9c-493e-b66e-f65d6e6cc48f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Controllers WITH NO INHERITANCE">
+      <UniqueIdentifier>{73a4a95c-517c-42fd-bc5f-85166b49959c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSession.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Asteroid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FuSMMachine.cpp">
+      <Filter>Source Files\FuSM</Filter>
+    </ClCompile>
+    <ClCompile Include="ShipFuSMStates.cpp">
+      <Filter>Source Files\FuSM</Filter>
+    </ClCompile>
+    <ClCompile Include="ShipOwnedStates.cpp">
+      <Filter>Source Files\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="FSMControl.cpp">
+      <Filter>Source Files\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="FuSMControl.cpp">
+      <Filter>Source Files\Controllers WITH NO INHERITANCE</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameSession.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Asteroid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FuSMState.h">
+      <Filter>Header Files\FuSM</Filter>
+    </ClInclude>
+    <ClInclude Include="FuSMMachine.h">
+      <Filter>Header Files\FuSM</Filter>
+    </ClInclude>
+    <ClInclude Include="ShipFuSMStates.h">
+      <Filter>Header Files\FuSM</Filter>
+    </ClInclude>
+    <ClInclude Include="ShipOwnedStates.h">
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="Control.h">
+      <Filter>Header Files\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="FSMControl.h">
+      <Filter>Header Files\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="FuSMControl.h">
+      <Filter>Header Files\Controllers</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

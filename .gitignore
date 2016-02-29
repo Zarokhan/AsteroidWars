@@ -1,26 +1,28 @@
 # Compiled Object files
 *.slo
+*.sdf
 *.lo
 *.o
 *.obj
-
-# Precompiled Headers
-*.gch
-*.pch
+*.tlog
+*.pdb
+*.ilk
+*.suo
+*.log
+*.iobj
+*.ipdb
+*.opensdf
+*.idb
+*.suo
 
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
-
-# Fortran module files
-*.mod
 
 # Compiled Static libraries
 *.lai
 *.la
 *.a
-*.lib
 
 # Executables
 *.exe
