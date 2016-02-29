@@ -15,9 +15,7 @@ void GameSession::Init()
 	//ship->control = new FSMControl(ship);
 	control = new FuSMControl(ship);
 
-	curr = sf::Time::Zero;
-	limit = sf::seconds(1.f);
-	std::srand(std::time(0));
+	std::srand(std::time(0));	// Sets seed for random numbers
 
 	spawnedAsteroids = 0;
 }
@@ -136,7 +134,7 @@ void GameSession::SpawnAsteroids()
 	}
 }
 
-void GameSession::Draw(sf::RenderWindow* const window)
+void GameSession::Draw()
 {
 	window->setView(*camera);
 

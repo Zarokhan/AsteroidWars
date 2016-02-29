@@ -5,6 +5,7 @@
 #include "Projectile.h"
 #include "FuSMControl.h"
 #include "FSMControl.h"
+#include "Window.h"
 #include <vector>
 #include <cstdlib>
 #include <ctime>
@@ -20,15 +21,13 @@ class Ship;
 class GameSession
 {
 private:
-	Ship* ship;								//
-	FuSMControl* control;
-	std::vector<Asteroid*> asteroids;		//
-	std::vector<Projectile*> projectiles;	//
-	sf::View* camera;						// Viewport of screen, acts as a camera
+	Ship* ship;								// Main entity of game
+	FuSMControl* control;					// This should be in ship, but class can't inherit from control
+	std::vector<Asteroid*> asteroids;		// List of asteroids in gamescene
+	std::vector<Projectile*> projectiles;	// List of projectiles in gamescene
+	sf::View* camera;						// Viewport of scene, acts as a camera
 
-	sf::Clock clock;					// Clock for asteroids
-	sf::Time curr;		
-	sf::Time limit;	 
+	sf::Clock clock;					// Clock for spawning asteroids
 	
 	int spawnedAsteroids;
 
@@ -57,13 +56,15 @@ public:
 	GameSession();
 	~GameSession();
 	void Update(float delta);
-	void Draw(sf::RenderWindow* const window);
+	void Draw();
 	void SpawnProjectile();		// Spawns projectile into world
 
+	// Gets all asteroid in gamesession
 	std::vector<Asteroid*> GetAsteroids() const
 	{
 		return asteroids;
 	}
 
+	// Gets specific asteroid in gamesession by ID
 	Asteroid* GetAsteroid(int ID) const;
 };

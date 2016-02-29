@@ -1,27 +1,26 @@
+#include <Windows.h>
 #include "SFML\Graphics.hpp"
+#include "Window.h"
 #include "GameSession.h"
-#define WINDOW_TITLE "Asteroid Wars"
-#define WINDOW_WIDTH 1280
-#define WINDOW_HEIGHT 720
 
 // Window
 sf::RenderWindow* window;
 GameSession* game;
 
 // Main method
-int main()
+int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance, LPSTR lpszArgument, int nCmdShow)
 {
-	bool isClosing = false;
 	window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_TITLE);
+	game = new GameSession();
+
 	sf::Clock clock;
 	sf::Time deltaTime = sf::Time::Zero;
 	sf::Time ups = sf::seconds(1.f / 60.f);	// Updates per second
+	
 	float delta = 0;
 
-	game = new GameSession();
-
 	// Game loop
-	while (window->isOpen() && !isClosing)
+	while (window->isOpen())
 	{
 		// Process Events
 		sf::Event event;
@@ -31,7 +30,6 @@ int main()
 			{
 			case sf::Event::Closed:
 				window->close();
-				isClosing = true;
 				break;
 			case sf::Event::Resized:
 				//window->setSize(sf::Vector2u(WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -39,22 +37,19 @@ int main()
 			}
 		}
 
-		if (!isClosing)
+		// Update logic if 1/60 seconds has passed
+		while (deltaTime > ups)
 		{
-			// Update logic if 1/60 seconds has passed
-			while (deltaTime > ups)
-			{
-				deltaTime -= ups;
-				delta = deltaTime.asSeconds() * 1000.f;
-				game->Update(delta);
-			}
-
-			window->clear();
-			game->Draw(window);
-			window->display();
-
-			deltaTime += clock.restart();
+			deltaTime -= ups;
+			delta = deltaTime.asSeconds();
+			game->Update(delta);
 		}
+
+		window->clear();
+		game->Draw();
+		window->display();
+
+		deltaTime += clock.restart();
 	}
 
 	delete game;

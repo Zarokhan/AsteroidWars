@@ -1,8 +1,5 @@
 #pragma once
-#include "SFML\Graphics.hpp"
-
-#define CAMERA_WIDTH 1920
-#define CAMERA_HEIGHT 1080
+#include "Window.h"
 
 class GameObject : public sf::Sprite
 {
