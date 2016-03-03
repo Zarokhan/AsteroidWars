@@ -1,6 +1,6 @@
 #include "ShipFuSMStates.h"
-#include "Ship.h"
-#include "MathUtils.h"
+#include "../Ship.h"
+#include "../MathUtils.h"
 
 // --- Approach
 

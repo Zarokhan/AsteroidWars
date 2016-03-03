@@ -3,8 +3,8 @@
 #include "Ship.h"
 #include "Asteroid.h"
 #include "Projectile.h"
-#include "FuSMControl.h"
-#include "FSMControl.h"
+#include "FuSM/FuSMControl.h"
+#include "FSM/FSMControl.h"
 #include "Window.h"
 #include <vector>
 #include <cstdlib>

@@ -1,5 +1,5 @@
 #pragma once
-#include "Ship.h"
+#include "../Ship.h"
 #include "State.h"
 #include "Control.h"
 #include "FSMControl.h"

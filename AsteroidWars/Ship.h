@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-#include "ShipOwnedStates.h"
+#include "FSM/ShipOwnedStates.h"
 #include "GameSession.h"
 #include "Asteroid.h"
 #include "Control.h"

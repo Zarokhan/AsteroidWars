@@ -1,5 +1,5 @@
 #pragma once
-#include "Control.h"
+#include "../Control.h"
 #include "StateMachine.h"
 
 class FSMControl : public Control
