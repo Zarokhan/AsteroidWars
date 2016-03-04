@@ -136,16 +136,16 @@ void GameSession::SpawnAsteroids()
 
 void GameSession::Draw()
 {
-	window->setView(*camera);
+	Window->setView(*camera);
 
 	// Draws asteriods
 	for (int i = 0; i < asteroids.size(); i++)
-		window->draw(*asteroids[i]);
+		Window->draw(*asteroids[i]);
 
 	for (int i = 0; i < projectiles.size(); i++)
-		window->draw(*projectiles[i]);
+		Window->draw(*projectiles[i]);
 
-	window->draw(*ship);
+	Window->draw(*ship);
 }
 
 void GameSession::Dispose()

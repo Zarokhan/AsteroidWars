@@ -7,4 +7,4 @@
 #define CAMERA_WIDTH 1920
 #define CAMERA_HEIGHT 1080
 
-extern sf::RenderWindow* window;
+extern sf::RenderWindow* Window;

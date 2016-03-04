@@ -11,6 +11,15 @@ Ship::Ship(GameSession* p)
 	direction.x = 1.f;
 }
 
+Ship::Ship(GASession* p)
+	: GameObject("../Images/SpaceShip.png")
+{
+	parent = NULL;
+	speed = START_SPEED;
+	rotation_speed = START_ROTATION_SPEED;
+	direction.x = 1.f;
+}
+
 void Ship::Update(float delta)
 {
 	Movement();
@@ -32,7 +41,8 @@ void Ship::Shoot()
 {
 	if (reload.getElapsedTime().asSeconds() >= RELOAD_TIME && lineofsight)
 	{
-		parent->SpawnProjectile();
+		if (parent != NULL)
+			parent->SpawnProjectile();
 		reload.restart();
 	}
 }
@@ -109,6 +119,7 @@ void Ship::CheckNearestAsteroid()
 {
 	nearest = nullptr;
 	nearest_asteroid_distance = 10000.f;
+	
 	std::vector<Asteroid*> temp = parent->GetAsteroids();
 
 	for (int i = 0; i < temp.size(); i++)

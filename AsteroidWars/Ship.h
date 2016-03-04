@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "FSM/ShipOwnedStates.h"
 #include "GameSession.h"
+#include "GA\GASession.h"
 #include "Asteroid.h"
 #include "Control.h"
 #include <cmath>
@@ -15,12 +16,14 @@
 #define ASTEROID_PANIC_RANGE 250
 
 class GameSession;
+class GASession;
 class Control;
 
 class Ship : public GameObject
 {
 private:
 	GameSession* parent;
+	GASession* session;
 	sf::Clock reload;
 
 	Ship(const Ship&);
@@ -35,6 +38,7 @@ protected:
 
 public:
 	Ship(GameSession* p);
+	Ship(GASession* p);
 	~Ship();
 	virtual void Update(float delta) override;
 	
