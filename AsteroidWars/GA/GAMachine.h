@@ -2,14 +2,17 @@
 #include <vector>
 #include "GAAIControl.h"
 #include "Genome.h"
+#include "GASession.h"
 
 #define NUM_MAX_GENERATIONS 100
-#define POPULATION_SIZE 10
+
+class GASession;
 
 class GAMachine
 {
 public:
 	GAMachine(GAAIControl* parent) : parent(parent) {}
+	~GAMachine();
 	void SetupNextGeneration();
 	void CreateStartPopulation();
 	void Update(float dt);
@@ -39,6 +42,8 @@ public:
 
 	// Elitism
 	void CopyEliteInto(std::vector<Genome> &destination);
+
+	GASession* parrent;
 
 protected:
 	GAAIControl* parent;

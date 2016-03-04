@@ -25,10 +25,11 @@ private:
 	GameSession* parent;
 	GASession* session;
 	sf::Clock reload;
+	float rotation;
 
 	Ship(const Ship&);
+	Ship() : GameObject("../Images/SpaceShip.png") {};
 
-	float rotation;
 	void CheckNearestAsteroid();
 
 protected:
@@ -59,5 +60,6 @@ public:
 	float nearest_asteroid_distance;
 	bool lineofsight;	// of nearest asteroid
 	bool evadepanic;
+	bool active;		// GA only, if ship is active
 	Asteroid* nearest;
 };

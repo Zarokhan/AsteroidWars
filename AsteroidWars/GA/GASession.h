@@ -6,6 +6,7 @@
 #include "../FuSM/FuSMControl.h"
 #include "../FSM/FSMControl.h"
 #include "../Window.h"
+#include "GAMachine.h"
 #include <vector>
 #include <cstdlib>
 #include <ctime>
@@ -15,13 +16,15 @@
 #define ASTEROID_MIN_SPEED 10
 #define ASTEROID_RESPAWN_TIME 1
 #define MAX_ASTEROIDS 10
+#define POPULATION_SIZE 10
 
 class Ship;
+class GAMachine;
 
 class GASession
 {
 private:
-	Ship* ship;								// Main entity of game
+	GAMachine* machine;
 	std::vector<Asteroid*> asteroids;		// List of asteroids in gamescene
 	std::vector<Projectile*> projectiles;	// List of projectiles in gamescene
 	sf::View* camera;						// Viewport of scene, acts as a camera
@@ -67,4 +70,7 @@ public:
 
 	// Gets specific asteroid in gamesession by ID
 	Asteroid* GetAsteroid(int ID) const;
+
+	// Attributes
+	Ship* ships[POPULATION_SIZE];							// Array of ships for test bed
 };

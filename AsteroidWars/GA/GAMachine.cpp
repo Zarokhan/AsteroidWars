@@ -20,9 +20,9 @@ void GAMachine::Update(float dt)
 	}
 
 	liveCount = 0;
-	for (int i = 0; i < POPULATION_SIZE; ++i)
+	for (int i = 0; i < POPULATION_SIZE; i++)
 	{
-
+		//if(!parrent->ships[i]->)
 	}
 }
 
@@ -52,19 +52,22 @@ bool GAMachine::ReadSolution()
 	return false;
 }
 
-Genome & GAMachine::SelectRouletteWheel()
+Genome& GAMachine::SelectRouletteWheel()
 {
 	// TODO: insert return statement here
+	return genomes.at(0);
 }
 
-Genome & GAMachine::SelectTournament()
+Genome& GAMachine::SelectTournament()
 {
 	// TODO: insert return statement here
+	return genomes.at(0);
 }
 
-Genome & GAMachine::SelectRank()
+Genome& GAMachine::SelectRank()
 {
 	// TODO: insert return statement here
+	return genomes.at(0);
 }
 
 void GAMachine::CrossPMX(const std::vector<Gene>& parent1, const std::vector<Gene>& parent2, std::vector<Gene>& offspring1, std::vector<Gene>& offspring2)
@@ -96,5 +99,9 @@ void GAMachine::MutateInsertion(std::vector<Gene>& genes)
 }
 
 void GAMachine::CopyEliteInto(std::vector<Genome>& destination)
+{
+}
+
+GAMachine::~GAMachine()
 {
 }

@@ -18,6 +18,7 @@ Ship::Ship(GASession* p)
 	speed = START_SPEED;
 	rotation_speed = START_ROTATION_SPEED;
 	direction.x = 1.f;
+	active = true;
 }
 
 void Ship::Update(float delta)

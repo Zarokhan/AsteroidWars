@@ -5,7 +5,7 @@
 #include "GameSession.h"
 #include "GA/GASession.h"
 
-#define GAME 0
+#define GAME 0	// 0 = GA test bed, 1 = Game (FSM or FuSM)
 
 // Window
 sf::RenderWindow* Window;
@@ -17,17 +17,13 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance, LPSTR lpszA
 {
 	Window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_TITLE);
 	
-	if (GAME)
-	{
-		Game = new GameSession();
-		GA = NULL;
-	}
-	else
-	{
-		GA = new GASession();
-		Game = NULL;
-	}
-	
+#if GAME
+	Game = new GameSession();
+	GA = NULL;
+#else
+	GA = new GASession();
+	Game = NULL;
+#endif
 
 	sf::Clock clock;
 	sf::Time deltaTime = sf::Time::Zero;
@@ -58,17 +54,24 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance, LPSTR lpszA
 		{
 			deltaTime -= ups;
 			delta = deltaTime.asSeconds();
-			if (Game != NULL)
-				Game->Update(delta);
-			else if (GA != NULL)
-				GA->Update(delta);
+
+#if GAME
+			Game->Update(delta);
+#else
+			GA->Update(delta);
+#endif
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+				Window->close();
+
 		}
 
 		Window->clear();
-		if (GAME != NULL)
-			Game->Draw();
-		else if (GA != NULL)
-			GA->Draw();
+#if GAME
+		Game->Draw();
+#else
+		GA->Draw();
+#endif
 		Window->display();
 
 		deltaTime += clock.restart();
