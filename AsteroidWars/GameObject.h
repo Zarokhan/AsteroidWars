@@ -27,6 +27,12 @@ public:
 	virtual void Update(float delta) = 0;
 	virtual ~GameObject() { }
 
+	void ResetVelocity()
+	{
+		velocity.x = 0.f;
+		velocity.y = 0.f;
+	}
+
 	inline const sf::Vector2f GetDirection() const
 	{
 		return direction;

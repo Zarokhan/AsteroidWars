@@ -151,6 +151,7 @@
     <ClCompile Include="FSM\FSMControl.cpp" />
     <ClCompile Include="FuSM\FuSMControl.cpp" />
     <ClCompile Include="GameSession.cpp" />
+    <ClCompile Include="GA\GAAIControl.cpp" />
     <ClCompile Include="GA\GAMachine.cpp" />
     <ClCompile Include="GA\GASession.cpp" />
     <ClCompile Include="Main.cpp" />

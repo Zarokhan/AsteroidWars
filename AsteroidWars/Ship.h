@@ -25,7 +25,6 @@ private:
 	GameSession* parent;
 	GASession* session;
 	sf::Clock reload;
-	float rotation;
 
 	Ship(const Ship&);
 	Ship() : GameObject("../Images/SpaceShip.png") {};
@@ -56,6 +55,7 @@ public:
 	void Evade();
 	void Shoot();
 	void SteerToNearestAsteroid();
+	float rotation;
 
 	float nearest_asteroid_distance;
 	bool lineofsight;	// of nearest asteroid

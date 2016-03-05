@@ -13,8 +13,8 @@ void GASession::Init()
 		ships[i] = ship;
 	}
 
-	machine = new GAMachine(NULL);
-	machine->parrent = this;
+	machine = new GAMachine(new GAAIControl(this));
+	machine->Session = this;
 
 	spawnedAsteroids = 0;
 }

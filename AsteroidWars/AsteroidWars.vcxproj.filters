@@ -72,6 +72,9 @@
     <ClCompile Include="GA\GASession.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GA\GAAIControl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameSession.h">

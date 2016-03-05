@@ -3,15 +3,19 @@
 #include "GAAIControl.h"
 #include "Genome.h"
 #include "GASession.h"
+#include <cstdlib>
+#include <ctime>
 
 #define NUM_MAX_GENERATIONS 100
+#define GENOME_SIZE 10
 
 class GASession;
+class GAAIControl;
 
 class GAMachine
 {
 public:
-	GAMachine(GAAIControl* parent) : parent(parent) {}
+	GAMachine(GAAIControl* parent) : parent(parent) { std::srand(std::time(0)); }
 	~GAMachine();
 	void SetupNextGeneration();
 	void CreateStartPopulation();
@@ -29,6 +33,9 @@ public:
 	Genome& SelectRank();
 
 	// Crossover operators - order based genes
+	void CrossUniform(const std::vector<Gene> &parent1, const std::vector<Gene> &parent2, std::vector<Gene> &offspring1, std::vector<Gene> &offspring2);
+	void CrossSinglePoint(const std::vector<Gene> &parent1, const std::vector<Gene> &parent2, std::vector<Gene> &offspring1, std::vector<Gene> &offspring2);
+	void CrossMultiPoint(const std::vector<Gene> &parent1, const std::vector<Gene> &parent2, std::vector<Gene> &offspring1, std::vector<Gene> &offspring2);
 	void CrossPMX(const std::vector<Gene> &parent1, const std::vector<Gene> &parent2, std::vector<Gene> &offspring1, std::vector<Gene> &offspring2);
 	void CrossOrderBased(const std::vector<Gene> &parent1, const std::vector<Gene> &parent2, std::vector<Gene> &offspring1, std::vector<Gene> &offspring2);
 	void CrossPositionBased(const std::vector<Gene> &parent1, const std::vector<Gene> &parent2, std::vector<Gene> &offspring1, std::vector<Gene> &offspring2);
@@ -43,7 +50,17 @@ public:
 	// Elitism
 	void CopyEliteInto(std::vector<Genome> &destination);
 
-	GASession* parrent;
+	GASession* Session;
+
+	inline const float GNR_RANDOM_FLOAT(int max = 1)
+	{
+		return static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / max));
+	}
+
+	inline const int GNR_RANDOM_INT(int max)
+	{
+		return rand() % max;
+	}
 
 protected:
 	GAAIControl* parent;

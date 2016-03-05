@@ -42,7 +42,7 @@ private:
 
 	// Generates random float
 	// @param max : generates float from 0 to max
-	inline const float GNR_RANDOM_FLOAT(int max)
+	inline const float GNR_RANDOM_FLOAT(int max = 1)
 	{
 		return static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / max));
 	}
