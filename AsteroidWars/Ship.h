@@ -46,6 +46,7 @@ public:
 	Control* control;
 	
 	void KeyboardInput();
+	void SetGASession(GASession* session) { this->session = session; }
 
 	void SteerRight(const float& val);
 	void ThrustForward(float val = 1.f);

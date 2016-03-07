@@ -3,8 +3,6 @@
 #include "../Ship.h"
 #include "../Asteroid.h"
 #include "../Projectile.h"
-#include "../FuSM/FuSMControl.h"
-#include "../FSM/FSMControl.h"
 #include "../Window.h"
 #include "GAMachine.h"
 #include <vector>
@@ -58,7 +56,7 @@ public:
 	GASession() { Init(); }
 	~GASession() { Dispose(); }
 
-	void Update(float delta);
+	void Update(float dt);
 	void Draw();
 	void SpawnProjectile();		// Spawns projectile into world
 

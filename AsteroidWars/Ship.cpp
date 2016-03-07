@@ -121,7 +121,11 @@ void Ship::CheckNearestAsteroid()
 	nearest = nullptr;
 	nearest_asteroid_distance = 10000.f;
 	
-	std::vector<Asteroid*> temp = parent->GetAsteroids();
+	std::vector<Asteroid*> temp;
+	if (parent != NULL)
+		temp = parent->GetAsteroids();
+	else if (session != NULL)
+		temp = session->GetAsteroids();
 
 	for (int i = 0; i < temp.size(); i++)
 	{

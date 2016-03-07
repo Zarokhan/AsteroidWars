@@ -60,6 +60,11 @@ void GAMachine::CreateStartPopulation()
 	for (int i = 0; i < GENOME_SIZE; i++)
 	{
 		Genome genome;
+		for (int i = 0; i < 560; i++)
+		{
+			Gene gene;
+			genome.genes.push_back(gene);
+		}
 		genomes.push_back(genome);
 	}
 }

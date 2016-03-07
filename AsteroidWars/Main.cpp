@@ -9,6 +9,7 @@
 
 // Window
 sf::RenderWindow* Window;
+sf::RenderWindow* DebugWindow;
 GameSession* Game;
 GASession* GA;
 
