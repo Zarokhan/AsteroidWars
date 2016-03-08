@@ -12,26 +12,27 @@ void GAAIControl::UpdatePerceptions(float delta, int index)
 	int directionState = -1;
 	int distanceState = -1;
 
-	// Store closest asteroids
 	if (ship->nearest)
 	{
 		sf::Vector2f normDelta = ship->nearest->getPosition() - ship->getPosition();
-		FunMath::NormalizeVector2f(normDelta);
+		Utils::NormalizeVector2f(normDelta);
 
 		// Asteroid collision determination
-		float speed = FunMath::Magnitude(ship->GetVelocity());
+		float speed = Utils::Magnitude(ship->GetVelocity());
+
 		float distance = ship->nearest_asteroid_distance;
-		float astSpeed = FunMath::Magnitude(ship->nearest->GetVelocity());
+
+		float astSpeed = Utils::Magnitude(ship->nearest->GetVelocity());
 		sf::Vector2f temp = ship->GetVelocity();
 		float shpSpeedAdj = DOT(temp, normDelta) * speed;
 		temp = ship->nearest->GetVelocity();
-		float astSpeedAdj = DOT(temp, -normDelta) * speed;
+		float astSpeedAdj = DOT(temp, -normDelta) * astSpeed;
 		speed = shpSpeedAdj + astSpeedAdj;
 		speed = MIN(speed, START_SPEED);
-		collisionState = (int)FunMath::LERP(speed / START_SPEED, 0.f, 9.f);
+		collisionState = (int)Utils::LERP(speed / START_SPEED, 0.f, 9.f);
 
 		// Direction determination
-		directionState = FunMath::GETSECTOR(normDelta);
+		directionState = Utils::GETSECTOR(normDelta);
 
 		// Distance determination
 		distanceState = MIN((int)(distance / ship->nearest->getTextureRect().width), 4);

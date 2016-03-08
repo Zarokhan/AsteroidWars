@@ -13,10 +13,10 @@ public:
 
 	void UpdatePerceptions(float delta, int index);
 
-	int currentEvasionSituation;
-
 	inline float DOT(sf::Vector2f &a, sf::Vector2f &b)
 	{
 		return a.x*b.x + a.y*b.y;
 	}
+
+	int currentEvasionSituation;
 };

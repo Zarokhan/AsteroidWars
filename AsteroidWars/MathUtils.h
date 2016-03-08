@@ -1,12 +1,15 @@
 #pragma once
 #include "SFML\Graphics.hpp"
 #include <cmath>
+#include <string>
+#include <iostream>
+#include <sstream>
 
 #define PI 3.14159265359
 #define DEGREES_PER_RADIAN	57.29577951f
 #define MIN(a,b)    (((a) < (b)) ? (a) : (b))
 
-namespace FunMath
+namespace Utils
 {
 	static float CLAMPDIR180(float dir)
 	{
@@ -153,5 +156,13 @@ namespace FunMath
 		float lenght = LenghtOfVector(p);
 		p.x = p.x / lenght;
 		p.y = p.y / lenght;
+	}
+
+	template<class T>
+	static std::string ToString(T i)
+	{
+		std::ostringstream stream;
+		stream << i;
+		return stream.str();
 	}
 }

@@ -25,7 +25,7 @@ float ApproachFuSMState::CalculateActivation()
 	if (nearest == nullptr || ship == nullptr || ship->evadepanic)
 		return 0.f;
 
-	float dist = FunMath::Distance(nearest->getPosition(), ship->getPosition());
+	float dist = Utils::Distance(nearest->getPosition(), ship->getPosition());
 	this->activationLevel = dist / (CAMERA_HEIGHT / 2);
 
 	CheckBounds();
@@ -59,7 +59,7 @@ float AttackFuSMState::CalculateActivation()
 	if (nearest == nullptr || ship == nullptr)
 		return 0.f;
 
-	float dist = FunMath::Distance(nearest->getPosition(), ship->getPosition());
+	float dist = Utils::Distance(nearest->getPosition(), ship->getPosition());
 	
 	if (dist <= ASTEROID_IN_RANGE)
 		this->activationLevel = dist / ASTEROID_IN_RANGE;
@@ -101,7 +101,7 @@ float EvadeFuSMState::CalculateActivation()
 	if (nearest == nullptr || ship == nullptr)
 		return 0.f;
 
-	float dist = FunMath::Distance(nearest->getPosition(), ship->getPosition());
+	float dist = Utils::Distance(nearest->getPosition(), ship->getPosition());
 
 	if (dist <= ASTEROID_PANIC_RANGE)
 		this->activationLevel = (ASTEROID_PANIC_RANGE - dist) / ASTEROID_PANIC_RANGE;

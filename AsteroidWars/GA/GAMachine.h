@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 
-#define NUM_MAX_GENERATIONS 100
+#define NUM_MAX_GENERATIONS 1000
 #define GENOME_SIZE 10
 
 class GASession;
@@ -15,7 +15,7 @@ class GAAIControl;
 class GAMachine
 {
 public:
-	GAMachine(GAAIControl* parent) : parent(parent) { std::srand(std::time(0)); }
+	GAMachine(GAAIControl* parent) : parent(parent) { std::srand(std::time(0)); Init(); }
 	~GAMachine();
 	void SetupNextGeneration();
 	void CreateStartPopulation();
@@ -29,23 +29,23 @@ public:
 
 	// Selection operators
 	Genome& SelectRouletteWheel();
-	Genome& SelectTournament();
-	Genome& SelectRank();
+	//Genome& SelectTournament();
+	//Genome& SelectRank();
 
 	// Crossover operators - order based genes
 	void CrossUniform(const std::vector<Gene> &parent1, const std::vector<Gene> &parent2, std::vector<Gene> &offspring1, std::vector<Gene> &offspring2);
-	void CrossSinglePoint(const std::vector<Gene> &parent1, const std::vector<Gene> &parent2, std::vector<Gene> &offspring1, std::vector<Gene> &offspring2);
-	void CrossMultiPoint(const std::vector<Gene> &parent1, const std::vector<Gene> &parent2, std::vector<Gene> &offspring1, std::vector<Gene> &offspring2);
-	void CrossPMX(const std::vector<Gene> &parent1, const std::vector<Gene> &parent2, std::vector<Gene> &offspring1, std::vector<Gene> &offspring2);
-	void CrossOrderBased(const std::vector<Gene> &parent1, const std::vector<Gene> &parent2, std::vector<Gene> &offspring1, std::vector<Gene> &offspring2);
-	void CrossPositionBased(const std::vector<Gene> &parent1, const std::vector<Gene> &parent2, std::vector<Gene> &offspring1, std::vector<Gene> &offspring2);
+	//void CrossSinglePoint(const std::vector<Gene> &parent1, const std::vector<Gene> &parent2, std::vector<Gene> &offspring1, std::vector<Gene> &offspring2);
+	//void CrossMultiPoint(const std::vector<Gene> &parent1, const std::vector<Gene> &parent2, std::vector<Gene> &offspring1, std::vector<Gene> &offspring2);
+	//void CrossPMX(const std::vector<Gene> &parent1, const std::vector<Gene> &parent2, std::vector<Gene> &offspring1, std::vector<Gene> &offspring2);
+	//void CrossOrderBased(const std::vector<Gene> &parent1, const std::vector<Gene> &parent2, std::vector<Gene> &offspring1, std::vector<Gene> &offspring2);
+	//void CrossPositionBased(const std::vector<Gene> &parent1, const std::vector<Gene> &parent2, std::vector<Gene> &offspring1, std::vector<Gene> &offspring2);
 
 	// Mutation operators
 	void MutateOffset(std::vector<Gene> &genes);
 	// Mutation operators - order based genes
-	void MutateExchange(std::vector<Gene> &genes);
-	void MutateDisplacement(std::vector<Gene> &genes);
-	void MutateInsertion(std::vector<Gene> &genes);
+	//void MutateExchange(std::vector<Gene> &genes);
+	//void MutateDisplacement(std::vector<Gene> &genes);
+	//void MutateInsertion(std::vector<Gene> &genes);
 
 	// Elitism
 	void CopyEliteInto(std::vector<Genome> &destination);
@@ -62,17 +62,25 @@ public:
 		return rand() % max;
 	}
 
-protected:
+public:
 	GAAIControl* parent;
 	// Data
 	std::vector<Genome> genomes;
-	int rankIndexLast;
 	Genome bestGenome;
+	bool elitism;
+	int rankIndexLast;
 	int generations;
+	int liveCount;
 	float crossoverRate;
 	float mutationRate;
 	float offsetSize;
 	float bestFitness;
 	float totalFitness;
-	int liveCount;
+
+	// Keeping track of best generation data
+	int singleGeneration;
+	int bestFitnessGeneration;
+
+	int totalGeneration;
+	int bestTotalFitnessGeneration;
 };

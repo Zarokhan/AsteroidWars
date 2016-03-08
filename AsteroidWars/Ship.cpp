@@ -58,7 +58,7 @@ void Ship::SteerToNearestAsteroid()
 	target.y = (nearest->getPosition().y + nearest->GetVelocity().y) - this->getPosition().y;
 
 	float target_degrees_relative_ship = std::atan2f(target.y, target.x);
-	target_degrees_relative_ship = FunMath::ToDegrees(target_degrees_relative_ship);
+	target_degrees_relative_ship = Utils::ToDegrees(target_degrees_relative_ship);
 
 	// Shoot perception
 	float perception = rotation - std::abs(target_degrees_relative_ship);
@@ -94,7 +94,7 @@ void Ship::Evade()
 	sf::Vector2f target = (nearest->getPosition() + nearest->GetVelocity()) - this->getPosition();
 
 	float target_degrees = std::atan2f(target.y, target.x);
-	target_degrees = FunMath::ToDegrees(target_degrees);
+	target_degrees = Utils::ToDegrees(target_degrees);
 	float target_degrees_relative_ship = target_degrees - rotation;
 
 	//std::cout << "Degrees: " << (int)target_degrees_relative_ship << std::endl;
@@ -129,7 +129,7 @@ void Ship::CheckNearestAsteroid()
 
 	for (int i = 0; i < temp.size(); i++)
 	{
-		float distance = FunMath::Distance(temp[i]->getPosition(), this->getPosition());
+		float distance = Utils::Distance(temp[i]->getPosition(), this->getPosition());
 		if (distance < nearest_asteroid_distance)
 		{
 			nearest = temp[i]; // Return nearest asteroid as a pointer reference
@@ -146,8 +146,8 @@ void Ship::SteerRight(const float& val)
 
 void Ship::AdjustRotation()
 {
-	direction.x = std::cosf(FunMath::ToRadians(rotation));
-	direction.y = std::sinf(FunMath::ToRadians(rotation));
+	direction.x = std::cosf(Utils::ToRadians(rotation));
+	direction.y = std::sinf(Utils::ToRadians(rotation));
 	setRotation(rotation);
 }
 

@@ -5,6 +5,8 @@ void GASession::Init()
 	camera = new sf::View(sf::Vector2f(CAMERA_WIDTH / 2.f, CAMERA_HEIGHT / 2.f), sf::Vector2f(CAMERA_WIDTH, CAMERA_HEIGHT));
 	std::srand(std::time(0));	// Sets seed for random numbers
 
+	font.loadFromFile("../Assets/font.ttf");
+
 	// Initialize all ships
 	for (int i = 0; i < POPULATION_SIZE; i++)
 	{
@@ -27,13 +29,32 @@ void GASession::Dispose()
 	for (int i = 0; i < POPULATION_SIZE; i++)
 		delete ships[i];
 	delete ships;
-	int size = asteroids.size();
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < asteroids.size(); i++)
 		delete asteroids.at(i);
-	size = projectiles.size();
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < projectiles.size(); i++)
 		delete projectiles.at(i);
 	delete camera;
+}
+
+void GASession::Restart()
+{
+	for (int i = 0; i < asteroids.size(); i++)
+		delete asteroids.at(i);
+	asteroids.clear();
+
+	for (int i = 0; i < POPULATION_SIZE; i++)
+		delete ships[i];
+	ships[POPULATION_SIZE];
+	// Initialize all ships
+	for (int i = 0; i < POPULATION_SIZE; i++)
+	{
+		Ship *ship = new Ship(this);
+		ship->SetGASession(this);
+		ship->setPosition(sf::Vector2f(GNR_RANDOM_INT(CAMERA_WIDTH), GNR_RANDOM_INT(CAMERA_HEIGHT)));
+		ships[i] = ship;
+	}
+
+	spawnedAsteroids = 0;
 }
 
 void GASession::SpawnAsteroids()
@@ -94,6 +115,18 @@ void GASession::HandleProjectiles()
 
 void GASession::HandleCollision()
 {
+	// Handle ship asteroids collision;
+	for (int i = 0; i < asteroids.size(); i++)
+	{
+		for (int j = 0; j < POPULATION_SIZE; j++)
+		{
+			if (!ships[j]->active)
+				continue;
+
+			if (asteroids[i]->getGlobalBounds().intersects(ships[j]->getGlobalBounds()))
+				ships[j]->active = false;
+		}
+	}
 }
 
 void GASession::Update(float dt)
@@ -111,6 +144,7 @@ void GASession::Update(float dt)
 		asteroids[i]->Update(dt);
 
 	SpawnAsteroids();
+	HandleCollision();
 }
 
 void GASession::Draw()
@@ -121,7 +155,65 @@ void GASession::Draw()
 		Window->draw(*asteroids[i]);
 
 	for (int i = 0; i < POPULATION_SIZE; i++)
-		Window->draw(*ships[i]);
+	{
+		if (ships[i]->active)
+			Window->draw(*ships[i]);
+	}
+}
+
+void GASession::DrawInformation()
+{
+	for (int i = 0; i < 15; i++)
+	{
+		std::string string = "";
+
+		switch (i)
+		{
+		case 0:
+			string = "Generations " + Utils::ToString<int>(machine->generations);
+			break;
+		case 1:
+			string = "LiveCount " + Utils::ToString<int>(machine->liveCount);
+			break;
+		case 2:
+			string = "Asteroids " + Utils::ToString<int>(spawnedAsteroids);
+			break;
+		case 3:
+			string = "TotalFitness " + Utils::ToString<float>(machine->totalFitness);
+			break;
+		case 4:
+			string = "BestFitness " + Utils::ToString<float>(machine->bestFitness);
+			break;
+		case 5:
+			string = "CrossoverRate " + Utils::ToString<float>(machine->crossoverRate);
+			break;
+		case 6:
+			string = "MutationRate " + Utils::ToString<float>(machine->mutationRate);
+			break;
+		case 7:
+			string = "OffsetSize " + Utils::ToString<float>(machine->offsetSize);
+			break;
+		case 8:
+			string = "Elitism " + Utils::ToString<bool>(machine->elitism);
+			break;
+		case 10:
+			string = "Generation " + Utils::ToString<float>(machine->singleGeneration);
+			break;
+		case 11:
+			string = "Best single score " + Utils::ToString<float>(machine->bestFitnessGeneration);
+			break;
+		case 13:
+			string = "Generation " + Utils::ToString<float>(machine->totalGeneration);
+			break;
+		case 14:
+			string = "Best total score " + Utils::ToString<float>(machine->bestTotalFitnessGeneration);
+			break;
+		}
+
+		sf::Text text(string, font, 25);
+		text.setPosition(sf::Vector2f(0, 30 * i));
+		DebugWindow->draw(text);
+	}
 }
 
 void GASession::SpawnProjectile()

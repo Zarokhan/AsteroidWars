@@ -23,6 +23,7 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance, LPSTR lpszA
 	GA = NULL;
 #else
 	GA = new GASession();
+	DebugWindow = new sf::RenderWindow(sf::VideoMode(DEBUG_WIDTH, DEBUG_HEIGHT), DEBUG_TITLE);
 	Game = NULL;
 #endif
 
@@ -75,11 +76,18 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance, LPSTR lpszA
 #endif
 		Window->display();
 
+#if GAME == 0
+		DebugWindow->clear();
+		GA->DrawInformation();
+		DebugWindow->display();
+#endif
+
 		deltaTime += clock.restart();
 	}
 
 	delete Game;
 	delete Window;
+	delete DebugWindow;
 
 	return EXIT_SUCCESS;
 }

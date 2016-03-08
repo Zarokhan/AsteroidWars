@@ -1,6 +1,14 @@
 #include "GAMachine.h"
 #include "../MathUtils.h"
 
+void GAMachine::Init()
+{
+	crossoverRate = 0.1f;
+	mutationRate = 0.6f;
+	offsetSize = 0.7f;
+	elitism = true;
+}
+
 void GAMachine::SetupNextGeneration()
 {
 	// Next generation
@@ -16,7 +24,21 @@ void GAMachine::SetupNextGeneration()
 		totalFitness += genomes[i].fitness;
 	bestFitness = genomes[POPULATION_SIZE - 1].fitness;
 
-	CopyEliteInto(offspring);
+	// Best generation
+	if (bestFitness > bestFitnessGeneration)
+	{
+		bestFitnessGeneration = bestFitness;
+		singleGeneration = generations;
+	}
+
+	if (totalFitness > bestTotalFitnessGeneration)
+	{
+		bestTotalFitnessGeneration = totalFitness;
+		totalGeneration = generations;
+	}
+
+	if (elitism)
+		CopyEliteInto(offspring);
 
 	while (offspring.size() < POPULATION_SIZE)
 	{
@@ -26,7 +48,7 @@ void GAMachine::SetupNextGeneration()
 
 		// Crossover operation
 		Genome offspring1, offspring2;
-		CrossSinglePoint(parent1.genes, parent2.genes, offspring1.genes, offspring2.genes);
+		CrossUniform(parent1.genes, parent2.genes, offspring1.genes, offspring2.genes);
 
 		// mutation operator
 		MutateOffset(offspring1.genes);
@@ -53,6 +75,7 @@ void GAMachine::SetupNextGeneration()
 		ship->active = true;
 		ship->ResetVelocity();
 	}
+	Session->Restart();
 }
 
 void GAMachine::CreateStartPopulation()
@@ -60,9 +83,9 @@ void GAMachine::CreateStartPopulation()
 	for (int i = 0; i < GENOME_SIZE; i++)
 	{
 		Genome genome;
-		for (int i = 0; i < 560; i++)
+		for (int i = 0; i < 112; i++)
 		{
-			Gene gene;
+			Gene gene(GNR_RANDOM_INT(2), GNR_RANDOM_INT(NUM_SECTORS - 1));
 			genome.genes.push_back(gene);
 		}
 		genomes.push_back(genome);
@@ -85,7 +108,6 @@ void GAMachine::Update(float dt)
 	{
 		if (!Session->ships[i]->active)
 			continue;
-		liveCount++;
 		parent->UpdatePerceptions(dt, i);
 		ApplyBehaviorRule(i);
 		UpdateFitness(i);
@@ -107,10 +129,6 @@ void GAMachine::UpdateFitness(int index)
 	}
 }
 
-void GAMachine::Init()
-{
-}
-
 void GAMachine::Reset()
 {
 }
@@ -123,19 +141,19 @@ void GAMachine::ApplyBehaviorRule(int index)
 	Ship* ship = (Ship*)Session->ships[index];
 
 	// not going to collide, just idle...
-	if (parent->currentEvasionSituation == -1)
-	{
-		//ship->ThrustOFF
-		//ship->stopturn
-		return;
-	}
+	//if (Session->ships[index]->currentEvasionSituation == -1)
+	//{
+	//	//ship->ThrustOFF
+	//	//ship->stopturn
+	//	return;
+	//}
 
 	// thrust
 	int thrustTp = genomes[index].genes[parent->currentEvasionSituation].thrust;
 	//ship->stopturn
-	if (thrustTp == Gene::THRUST_FORWARD)
+	if (thrustTp == 0)
 		ship->ThrustForward();
-	else if (thrustTp == Gene::THRUST_REVERSE)
+	else if (thrustTp == 1)
 		ship->ThrustBackward();
 	//else
 		//ship->thrustoff
@@ -143,7 +161,7 @@ void GAMachine::ApplyBehaviorRule(int index)
 	// Turn
 	// -10 puts you in the middle of the sector
 	float newDir = genomes[index].genes[parent->currentEvasionSituation].sector * 20 - 10;
-	float angDelta = FunMath::CLAMPDIR180(ship->rotation - newDir);
+	float angDelta = Utils::CLAMPDIR180(ship->rotation - newDir);
 	if (fabsf(angDelta) <= 90)
 	{
 		if (angDelta > 0)
@@ -185,18 +203,6 @@ Genome& GAMachine::SelectRouletteWheel()
 	return genomes[0];
 }
 
-Genome& GAMachine::SelectTournament()
-{
-	// TODO: insert return statement here
-	return genomes[0];
-}
-
-Genome& GAMachine::SelectRank()
-{
-	// TODO: insert return statement here
-	return genomes[0];
-}
-
 void GAMachine::CrossUniform(const std::vector<Gene>& parent1, const std::vector<Gene>& parent2, std::vector<Gene>& offspring1, std::vector<Gene>& offspring2)
 {
 	if ((GNR_RANDOM_FLOAT() > crossoverRate) || (parent1 == parent2))
@@ -222,28 +228,7 @@ void GAMachine::CrossUniform(const std::vector<Gene>& parent1, const std::vector
 	}
 }
 
-void GAMachine::CrossSinglePoint(const std::vector<Gene>& parent1, const std::vector<Gene>& parent2, std::vector<Gene>& offspring1, std::vector<Gene>& offspring2)
-{
-}
-
-void GAMachine::CrossMultiPoint(const std::vector<Gene>& parent1, const std::vector<Gene>& parent2, std::vector<Gene>& offspring1, std::vector<Gene>& offspring2)
-{
-}
-
-void GAMachine::CrossPMX(const std::vector<Gene>& parent1, const std::vector<Gene>& parent2, std::vector<Gene>& offspring1, std::vector<Gene>& offspring2)
-{
-}
-
-void GAMachine::CrossOrderBased(const std::vector<Gene>& parent1, const std::vector<Gene>& parent2, std::vector<Gene>& offspring1, std::vector<Gene>& offspring2)
-{
-}
-
-void GAMachine::CrossPositionBased(const std::vector<Gene>& parent1, const std::vector<Gene>& parent2, std::vector<Gene>& offspring1, std::vector<Gene>& offspring2)
-{
-}
-
 #define NUM_THRUST_STATES 2
-#define NUM_SECTORS 18
 void GAMachine::MutateOffset(std::vector<Gene>& genes)
 {
 	for (int gene = 0; gene < genes.size(); gene++)
@@ -273,18 +258,6 @@ void GAMachine::MutateOffset(std::vector<Gene>& genes)
 				genes[gene].sector = NUM_SECTORS;
 		}
 	}
-}
-
-void GAMachine::MutateExchange(std::vector<Gene>& genes)
-{
-}
-
-void GAMachine::MutateDisplacement(std::vector<Gene>& genes)
-{
-}
-
-void GAMachine::MutateInsertion(std::vector<Gene>& genes)
-{
 }
 
 #define NUM_ELITE 4

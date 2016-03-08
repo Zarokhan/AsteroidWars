@@ -4,6 +4,8 @@
 #include "../Asteroid.h"
 #include "../Projectile.h"
 #include "../Window.h"
+#include "../MathUtils.h"
+#include <string>
 #include "GAMachine.h"
 #include <vector>
 #include <cstdlib>
@@ -13,7 +15,7 @@
 #define ASTEROID_MAX_SPEED 12
 #define ASTEROID_MIN_SPEED 10
 #define ASTEROID_RESPAWN_TIME 1
-#define MAX_ASTEROIDS 10
+#define MAX_ASTEROIDS 7
 #define POPULATION_SIZE 10
 
 class Ship;
@@ -58,7 +60,9 @@ public:
 
 	void Update(float dt);
 	void Draw();
+	void DrawInformation();
 	void SpawnProjectile();		// Spawns projectile into world
+	void Restart();
 
 	// Gets all asteroid in gamesession
 	std::vector<Asteroid*> GetAsteroids() const
@@ -70,5 +74,6 @@ public:
 	Asteroid* GetAsteroid(int ID) const;
 
 	// Attributes
-	Ship* ships[POPULATION_SIZE];							// Array of ships for test bed
+	Ship* ships[POPULATION_SIZE];							// Array of ships for test bed'
+	sf::Font font;
 };
