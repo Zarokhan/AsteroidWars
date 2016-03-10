@@ -77,6 +77,8 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance, LPSTR lpszA
 		Window->display();
 
 #if GAME == 0
+		sf::Vector2i pos(Window->getPosition().x - DEBUG_WIDTH, Window->getPosition().y);
+		DebugWindow->setPosition(pos);
 		DebugWindow->clear();
 		GA->DrawInformation();
 		DebugWindow->display();

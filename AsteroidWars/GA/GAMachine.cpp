@@ -5,7 +5,7 @@ void GAMachine::Init()
 {
 	crossoverRate = 0.1f;
 	mutationRate = 0.6f;
-	offsetSize = 0.7f;
+	offsetSize = 1.f;
 	elitism = true;
 }
 

@@ -131,6 +131,17 @@ void GASession::HandleCollision()
 
 void GASession::Update(float dt)
 {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+		pressed = true;
+	else if (pressed)
+	{
+		pressed = false;
+		paused = !paused;
+	}
+
+	if (paused)
+		return;
+
 	for (int i = 0; i < POPULATION_SIZE; i++)
 	{
 		if (ships[i] == NULL)
@@ -158,6 +169,13 @@ void GASession::Draw()
 	{
 		if (ships[i]->active)
 			Window->draw(*ships[i]);
+	}
+
+	if (paused)
+	{
+		sf::Text text("Paused", font, 60);
+		text.setPosition(sf::Vector2f((CAMERA_WIDTH - text.getLocalBounds().width)/2, (CAMERA_HEIGHT - text.getLocalBounds().height) / 2));
+		Window->draw(text);
 	}
 }
 

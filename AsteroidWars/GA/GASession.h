@@ -54,6 +54,9 @@ private:
 		return rand() % max;
 	}
 
+	bool paused;
+	bool pressed;
+
 public:
 	GASession() { Init(); }
 	~GASession() { Dispose(); }
