@@ -18,5 +18,8 @@ public:
 		return a.x*b.x + a.y*b.y;
 	}
 
+	int* test = new int;
+	sf::Vector2f* test2 = new sf::Vector2f();
+
 	int currentEvasionSituation;
 };

@@ -131,13 +131,13 @@ void GASession::HandleCollision()
 
 void GASession::Update(float dt)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
-		pressed = true;
-	else if (pressed)
-	{
-		pressed = false;
-		paused = !paused;
-	}
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	//	pressed = true;
+	//else if (pressed)
+	//{
+	//	pressed = false;
+	//	paused = !paused;
+	//}
 
 	if (paused)
 		return;

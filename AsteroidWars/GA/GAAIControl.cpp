@@ -16,6 +16,7 @@ void GAAIControl::UpdatePerceptions(float delta, int index)
 	{
 		sf::Vector2f normDelta = ship->nearest->getPosition() - ship->getPosition();
 		Utils::NormalizeVector2f(normDelta);
+		*test2 = normDelta;
 
 		// Asteroid collision determination
 		float speed = Utils::Magnitude(ship->GetVelocity());
@@ -30,13 +31,13 @@ void GAAIControl::UpdatePerceptions(float delta, int index)
 		speed = shpSpeedAdj + astSpeedAdj;
 		speed = MIN(speed, START_SPEED);
 		collisionState = (int)Utils::LERP(speed / START_SPEED, 0.f, 9.f);
-
+		*test = collisionState;
 		// Direction determination
 		directionState = Utils::GETSECTOR(normDelta);
-
+		*test = directionState;
 		// Distance determination
 		distanceState = MIN((int)(distance / ship->nearest->getTextureRect().width), 4);
-
+		*test = distanceState;
 	}
 	if (collisionState == -1)
 		currentEvasionSituation = -1;
