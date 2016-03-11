@@ -5,9 +5,10 @@
 #include "GASession.h"
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
+#include <fstream>
 
-#define NUM_MAX_GENERATIONS 1000
-#define GENOME_SIZE 10
+#define NUM_MAX_GENERATIONS 10000000
 
 class GASession;
 class GAAIControl;
@@ -29,6 +30,7 @@ public:
 
 	// Selection operators
 	Genome& SelectRouletteWheel();
+	Genome& SelectMySelection(); // Home made selection
 	//Genome& SelectTournament();
 	//Genome& SelectRank();
 
@@ -61,6 +63,9 @@ public:
 	{
 		return rand() % max;
 	}
+
+	std::ofstream myfile;
+
 
 public:
 	GAAIControl* parent;

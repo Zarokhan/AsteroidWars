@@ -1,10 +1,11 @@
 #include "GAMachine.h"
 #include "../MathUtils.h"
+#include <string>
 
 void GAMachine::Init()
 {
-	crossoverRate = 0.4f;
-	mutationRate = 0.6f;
+	crossoverRate = 0.5f;
+	mutationRate = 0.15f;
 	offsetSize = 1.f;
 	elitism = true;
 }
@@ -37,14 +38,35 @@ void GAMachine::SetupNextGeneration()
 		totalGeneration = generations;
 	}
 
+	std::vector<std::string> lines;
+
+	std::ifstream readfile;
+	readfile.open("generations.txt");
+	char output[10000];
+	if (readfile.is_open())
+	{
+		while (!readfile.eof())
+		{
+			readfile >> output;
+			lines.push_back(output);
+		}
+	}
+
+	myfile.open("generations.txt");
+	myfile << bestFitness << "\n";
+	for (int i = 0; i < lines.size(); i++)
+		myfile << lines[i] << "\n";
+	myfile.close();
+
 	if (elitism)
 		CopyEliteInto(offspring);
 
+	int i = 0;
 	while (offspring.size() < POPULATION_SIZE)
 	{
 		// Selection operator
-		Genome parent1 = SelectRouletteWheel();
-		Genome parent2 = SelectRouletteWheel();
+		Genome parent1 = genomes[i];		//SelectRouletteWheel();
+		Genome parent2 = genomes[i + 1];	//SelectRouletteWheel();
 
 		// Crossover operation
 		Genome offspring1, offspring2;
@@ -57,6 +79,7 @@ void GAMachine::SetupNextGeneration()
 		// Add to new population;
 		offspring.push_back(offspring1);
 		offspring.push_back(offspring2);
+		i += 2;
 	}
 
 	// Replace old generation with new
@@ -80,7 +103,7 @@ void GAMachine::SetupNextGeneration()
 
 void GAMachine::CreateStartPopulation()
 {
-	for (int i = 0; i < GENOME_SIZE; i++)
+	for (int i = 0; i < POPULATION_SIZE; i++)
 	{
 		Genome genome;
 		for (int i = 0; i < 112; i++)
@@ -203,6 +226,14 @@ Genome& GAMachine::SelectRouletteWheel()
 	return genomes[0];
 }
 
+Genome & GAMachine::SelectMySelection()
+{
+	for (int i = 0; i < POPULATION_SIZE / 2; i += 2)
+	{
+
+	}
+}
+
 void GAMachine::CrossUniform(const std::vector<Gene>& parent1, const std::vector<Gene>& parent2, std::vector<Gene>& offspring1, std::vector<Gene>& offspring2)
 {
 	if ((GNR_RANDOM_FLOAT() > crossoverRate) || (parent1 == parent2))
@@ -211,7 +242,7 @@ void GAMachine::CrossUniform(const std::vector<Gene>& parent1, const std::vector
 		offspring2 = parent2;
 		return;
 	}
-	for (int gene = 0; gene < GENOME_SIZE; gene++)
+	for (int gene = 0; gene < POPULATION_SIZE; gene++)
 	{
 		if (GNR_RANDOM_FLOAT() < crossoverRate)
 		{
