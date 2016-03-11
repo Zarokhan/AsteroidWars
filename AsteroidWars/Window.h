@@ -8,7 +8,7 @@
 #define CAMERA_HEIGHT 1080
 
 #define DEBUG_TITLE "GA Information"
-#define DEBUG_WIDTH 400
+#define DEBUG_WIDTH 300
 #define DEBUG_HEIGHT 720
 
 extern sf::RenderWindow* Window;
