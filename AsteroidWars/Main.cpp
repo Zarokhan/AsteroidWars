@@ -5,7 +5,7 @@
 #include "GameSession.h"
 #include "GA/GASession.h"
 
-#define GAME 0	// 0 = GA test bed, 1 = Game (FSM or FuSM)
+#define GAME 1	// 0 = GA test bed, 1 = Game (FSM or FuSM)
 
 // Window
 sf::RenderWindow* Window;

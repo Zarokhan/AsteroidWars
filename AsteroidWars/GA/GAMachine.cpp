@@ -232,6 +232,8 @@ Genome & GAMachine::SelectMySelection()
 	{
 
 	}
+
+	return genomes[0];
 }
 
 void GAMachine::CrossUniform(const std::vector<Gene>& parent1, const std::vector<Gene>& parent2, std::vector<Gene>& offspring1, std::vector<Gene>& offspring2)

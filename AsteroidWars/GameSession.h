@@ -23,6 +23,8 @@ class GameSession
 private:
 	Ship* ship;								// Main entity of game
 	FuSMControl* control;					// This should be in ship, but class can't inherit from control
+	std::vector<Ship*> ships;
+	std::vector<FuSMControl*> controls;
 	std::vector<Asteroid*> asteroids;		// List of asteroids in gamescene
 	std::vector<Projectile*> projectiles;	// List of projectiles in gamescene
 	sf::View* camera;						// Viewport of scene, acts as a camera
